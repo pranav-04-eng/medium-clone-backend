@@ -1,4 +1,4 @@
-# MERN Stack Blog Website Backend
+# MERN Stack Blog Website Backend-clone of Medium
 
 This is the backend of a blog website built with the MERN (MongoDB, Express, React, Node.js) stack. This backend application handles user authentication, blog management, and stores blog banners on AWS S3.
 
