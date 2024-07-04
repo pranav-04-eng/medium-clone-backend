@@ -1,0 +1,25 @@
+# #accesstoken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2N2FlNzQ0YjQ4NTg5MjIxYjNmMTJlZiIsImlhdCI6MTcxOTMzMDYyOH0._jM0l8ayVG7R1olpd69obC-4afKyGpQGC2sOQaPm8Gk
+
+# # Content-Type:application/json
+
+
+# # {
+# # "fullname":"John",
+# # "email":"john@gmail.com",
+# # "password":"John@123"
+# # }
+# POST http://localhost:3000/create-blog
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2N2FlNzQ0YjQ4NTg5MjIxYjNmMTJlZiIsImlhdCI6MTcxOTMzMDYyOH0._jM0l8ayVG7R1olpd69obC-4afKyGpQGC2sOQaPm8Gk
+
+# {
+#     "title": "test title",
+# "banner": "https://example.com/image-url",
+# "des": "this is ashort des",
+# "content": {
+# "blocks":[1, 2]
+# },
+# "tags":["tag1", "tag2"]}
+
+GET http://localhost:3000/trending-blogs
+
