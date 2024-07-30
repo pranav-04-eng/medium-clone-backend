@@ -251,7 +251,7 @@ server.post("/google-auth",async(req,res)=>{
 });
 
 server.get('/latest-blogs',(req,res)=>{
-  let maxLimit=7;
+  let maxLimit=5;
   Blog.find({draft:false })
   .populate("author",'personal_info.fullname personal_info.username personal_info.profile_img')
   .sort({"publishAt":-1})
@@ -273,5 +273,42 @@ server.get("/trending-blogs",(req,res)=>{
   .catch((err)=>{
     return res.status(500).json({ error: err.message })})
 })
- 
+
+server.post("/search-blogs", (req, res) => {
+  let { tag } = req.body;
+  let findQuery = { tags: tag, draft: false };
+  let maxLimit = 5;
+
+  Blog.find(findQuery)
+    .populate("author", 'personal_info.fullname personal_info.username personal_info.profile_img')
+    .sort({ "publishedAt": -1 })
+    .select("blog_id title des banner activity tags publishedt -_id")
+    .limit(maxLimit)
+    .then(blogs => {
+      return res.status(200).json({ blogs });
+    })
+    .catch(err => {
+      return res.status(500).json({ error: err.message });
+    });
+});
+
+//search api
+server.get('/blog/:blog_id', (req, res) => {
+  const { blog_id } = req.params;
+
+  Blog.findOne({ blog_id, draft: false })
+    .populate('author', 'personal_info.fullname personal_info.username personal_info.profile_img')
+    .select('blog_id title des banner content tags publishedAt -_id')
+    .then(blog => {
+      if (!blog) {
+        return res.status(404).json({ error: 'Blog not found' });
+      }
+      res.status(200).json({ blog });
+    })
+    .catch(err => {
+      console.error(err.message);
+      res.status(500).json({ error: 'Failed to retrieve the blog' });
+    });
+});
+
 server.listen(PORT, () => console.log(`Listening on Port ${PORT}`));
